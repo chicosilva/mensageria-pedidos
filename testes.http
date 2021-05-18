@@ -1,0 +1,7 @@
+POST http://localhost:3001/pedido
+content-type: application/json
+
+{
+    "name": "eu sou express"
+}
+

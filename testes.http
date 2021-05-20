@@ -2,5 +2,7 @@ POST http://localhost:3001/pedido
 content-type: application/json
 
 {
-    "name": "eu sou express"
+    "cliente": "Francisco Escobar",
+    "id": 1,
+    "valor": 150
 }

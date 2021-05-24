@@ -23,16 +23,23 @@ async function produce(dados) {
   }, 500);
 }
 
-async function do_consume() {
-    var conn = await amqplib.connect(amqp_url, "heartbeat=60");
+async function do_consume(io) {
+    
+  var conn = await amqplib.connect(amqp_url, "heartbeat=60");
     var ch = await conn.createChannel()
     var q = 'novo-pedido';
     await conn.createChannel();
     await ch.assertQueue(q, {durable: true});
     await ch.consume(q, function (msg) {
+        
         //console.log(msg.content.toString());
         ch.ack(msg);
         ch.cancel('myconsumer');
+        io.emit("atualiza_lista", msg.content.toString());
+        
+        return msg;
+
+
     }, {consumerTag: 'myconsumer'});
     setTimeout( function()  {
         ch.close();

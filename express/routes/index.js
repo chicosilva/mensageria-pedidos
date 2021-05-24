@@ -1,13 +1,16 @@
 var express = require("express");
 var router = express.Router();
-const produce = require('../rabittmq-server');
+const {produce, do_consume} = require('../rabittmq-server');
 
 
 router.get("/", function (req, res, next) {
+  
+  do_consume();
+
   res.render("index", { title: "tete" });
 });
 
-router.post("/pedido", function (req, res, next) {
+router.post("/pedido-old", function (req, res, next) {
 
   const dados = {
     exch: "pedidos",
